@@ -1,0 +1,45 @@
+<div align="center">
+<span style="width:100%" class="mb_left_margin">
+  &nbsp;
+<a class="facebook" href="https://facebook.com/sharer.php?u=https://....com/m/<%=@evangelist.id%>" target="_blank"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a>
+<a class="twitter-share-button tw" id="twitter-share-button"
+  href="https://twitter.com/intent/tweet?url=https://....com/m/<%=@evangelist.id%>&text=<%= @evangelist.title %>&hashtags=..." onclick="window.open(this.href, '', 'width=500,height=400'); return false;"> <i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
+<a class="reddit" href="http://reddit.com/submit?url=https://....com/m/<%=@evangelist.id%>&amp;title=<%=@evangelist.title%>" target="_blank">
+        <i class="fa fa-reddit-alien fa-lg" aria-hidden="true"></i></a>
+<a class="google" href="https://plus.google.com/share?url=https://....com/m/<%=@evangelist.id%>" target="_blank">
+        <i class="fa fa-google-plus fa-lg" aria-hidden="true"></i></a>
+<a class="pinterest" href="http://pinterest.com/pin/create/button/?url=https://....com/m/<%=@evangelist.id%>&description=<%= @evangelist.title%>&media=https://....com/" target="_blank"><i class="fa fa-pinterest-p fa-lg" aria-hidden="true"></i></a>&nbsp;
+</span>
+<div style="display:none;width:100px;" class="only_mb"><br><br><br><br></div>
+<form class="form-inline mb_margin" role="form" style="display: inline-block;">
+<div class="form-group">
+<span class="input-group">
+              <span class="addon_form"> <i class="fa fa-link" aria-hidden="true"></i> </span>
+              <input class="form-control" value="https://....com/m/<%= @evangelist.id%>" style="font-size:10px;width: 156px; text-align: right;">
+ </span>
+</div>
+ </form>
+</div>
+<style type="text/css">
+.addon_form{
+    position: absolute;
+    left: -4px;
+    top: 10px;
+    color: rgba(107, 105, 109, 0.81);
+    }</style>
+
+<div id="myToolTip" style="display:none;">
+  <p><b>Some Title</b></p>
+  <p>This will be the tooltip text.</p>
+  <p><a href="#">This link will be in the tooltip as well.</a></p>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+      $('#share_link').click(function() {
+            $('#share_show_toggle').toggle(425);
+            $('#url_for_share').focus();
+          });
+});
+</script>

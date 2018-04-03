@@ -1,0 +1,20 @@
+# config/s3.yml
+development:
+  bucket: test.doujinhub.com
+  access_key_id: OOZNP9J9LQ2PFNPVXDRX
+  secret_access_key: lfVUCx5n5FqUS0bkdCd7WSemr0mpAxk11q4aejUI
+  s3_host_name: str.cloudn-service.com
+  # s3_host_name: str.cloudn-service.com
+production:
+  bucket: i.doujinhub.com
+  access_key_id: OOZNP9J9LQ2PFNPVXDRX
+  secret_access_key: lfVUCx5n5FqUS0bkdCd7WSemr0mpAxk11q4aejUI
+  s3_host_name: str.cloudn-service.com
+  # s3_host_name: str.cloudn-service.com
+
+  # require "right_aws_api"
+
+  # key      = ENV['AWS_ACCESS_KEY_ID']
+  # secret   = ENV['AWS_SECRET_ACCESS_KEY']
+  # endpoint = 'https://str.cloudn-service.com/'
+  # s3       = RightScale::CloudApi::AWS::S3::Manager::new(key, secret, endpoint)

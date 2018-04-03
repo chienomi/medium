@@ -1,0 +1,8 @@
+<% @categories.pluck(:name).each do |t| %>
+        	<li>
+		    <div class="btn-group" role="group" area-label="Subscribe or Go to Categories">
+				<button type="button" class="btn btn-primary btn-xs" style="background: linear-gradient(to bottom, #F7FAFF 0%,#fff 40% , #fff 60% ,#FFFBFF 100%);"><%= link_to t, category_path(t), params: {cate: t} %></button>
+		    </div>
+
+		    </li>
+<% end %>  <!-- end_od_do -->

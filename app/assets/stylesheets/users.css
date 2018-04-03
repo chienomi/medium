@@ -1,0 +1,23 @@
+#mepachi_0, #mepachi_1, #mepachi_2, #tachi_04, #tachi_06, #tachi_08 {
+	display: none;
+}
+
+#image_user_update{
+	    transition: all 0.3s cubic-bezier(0.13, 0.28, 0.45, 1.48);
+    position: absolute;
+    top: 92px;
+    left: 9px;
+    height: 64px;
+    width: 64px;
+    border-radius: 100%;
+}
+
+.top_alert{
+	min-height:42px;
+}
+@media (max-width:767px) {
+	.top_alert{
+	min-height:32px;
+	}
+}
+

@@ -1,0 +1,6 @@
+  <%= hidden_field :next_video, "", value: @next_e_1_slug, id: "next_video_url" %>
+<%if @repeat != 1%>
+  <%= button_to "ループ再生", repeat_evangelist_path(@evangelist), method: :get, class: 'btn btn-primary btn-sm float_btn', remote: true, format: 'js', params: {repeat: 1} , rel:"nofollow" %>
+<%else%>
+  <%= button_to "ループ再生解除", repeat_evangelist_path(@evangelist), method: :get, class: 'btn btn-danger btn-sm float_btn', remote: true, format: 'js', params: {repeat: 0}, rel:"nofollow" %>
+<%end%>

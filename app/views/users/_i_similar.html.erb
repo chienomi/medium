@@ -1,0 +1,5 @@
+<%= form_for [@user, @user.mikutalks.similar], remote: true do |f| %>
+		<div id="send_left">
+    		<%= f.text_field :question, id: "input_box_text", class: "text_i", placeholder: "Tell a similar word!"%>
+    	</div>
+<%end%>

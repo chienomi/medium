@@ -1,0 +1,12 @@
+						<% if comment.user_name != "0" && comment.user_name != nil%>
+							<li>
+								<%= comment.user_name %> [<%= comment.user_id%>]:
+								<%= comment.body %>
+								<% if user_signed_in? %>
+				        			<% if @demo.user_id == current_user.id || comment.user_id == current_user.id %>
+
+				            			<%= link_to " x", demo_comment_path(comment.demo, comment), method: :delete, data: {confirm: "Delete this Comment? / コメントを削除します。よろしいですか？"} ,class: "link-cautious"%>
+				          			<%end%>
+				        		<%end%>
+							</li>
+						<% end %>

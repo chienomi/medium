@@ -1,0 +1,78 @@
+<div class="sougou" align="center">
+    <% if @search_title == nil%>
+        <% if @cate_select == 1 %> ...
+        <%else%>
+
+            <%if @index_style == 0 %><span style="margin:0.5em;">Recently Commented</span><%= link_to 'Popular',evangelists_path, class: "link_rv", style:"margin:0.5em;" %><%= link_to 'Newest', index_new_evangelists_path, class: "link_rv", style:"margin:0.5em;" %>
+            <%elsif @index_style == 1 %><%= link_to 'Recently Commented', index_comment_evangelists_path, class: "link_rv", style:"margin:0.5em;" %><%= link_to 'Popular',evangelists_path, class: "link_rv", style:"margin:0.5em;" %><span style="margin:0.5em;">Newest</span>
+            <%elsif @index_style == 2 %><%= link_to 'Recently Commented', index_comment_evangelists_path, class: "link_rv", style:"margin:0.5em;" %><span style="margin:0.5em;">Popular</span><%= link_to 'Newest', index_new_evangelists_path, class: "link_rv", style:"margin:0.5em;" %>
+            <%end%>
+        <%end%>
+    <%elsif params[:search] != nil %>
+        <h4>Materials like <b><%= @search_title %></b> (<%= @topic_size %> total)</h4>
+            <% if @search_type == 0%>
+            <span class="cl_b" style="margin-right:1em;">Popular</span>
+            <%= link_to search_new_evangelists_path(search: params['search']) , class: "link_rv", style:"margin-right:1em;" do %>Newest<%end%>
+
+            <% elsif @search_type == 1 %>
+            <%= link_to search_evangelists_path(search: params['search']) , class: "link_rv", style:"margin-right:1em;" do %>Popular<%end%>
+            <span class="cl_b" style="margin-right:1em;">Newest</span>
+
+            <% end %>
+    <% else %>
+        <h4>Materials like <b><%= @search_title %></b> (<%= @topic_size %> total)</h4>
+            <% if @search_type == 0 %>
+            <span class="cl_b" style="margin-right:1em;">Popular</span>
+            <%= link_to category_new_path(@search_title, cate_send: @search_title) , class: "link_rv", style:"margin-right:1em;" do %>Newest<%end%>
+
+            <% elsif @search_type == 1 %>
+            <%= link_to category_path(@search_title, cate_send: @search_title) , class: "link_rv", style:"margin-right:1em;" do %>Popular<%end%>
+            <span class="cl_b" style="margin-right:1em;">Newest</span>
+
+            <% end %>
+    <% end %>
+</div>
+
+<div class="row">
+<% @evangelists_topic.each do |evangelist| %>
+
+<div class="col-xs-12 col-sm-4 col-md-4" itemscope itemtype="http://schema.org/NewsArticle">
+<div class="thumbnails">
+	<div class="thumbnail_p">
+            <%= link_to evangelist do %>
+            <%if evangelist.yt_img0 != "" %><%= image_tag evangelist.yt_img0, class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% else %><%= image_tag 'uni_light.jpeg', class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% end %>
+            <span class="_dwc"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;<%= evangelist.yt_duration %></span>
+        <div class="cl_w ts in_thumbnail" itemprop="name">
+            <%= evangelist.title %>
+        </div>
+        <div class="hvr-radial-out">
+        </div>
+        <%end%>
+    </div><link itemprop="embedUrl" content="<%=@show_src%>" />
+<div class="inside_thumb">
+    <div class="name_i cl_gray tip" id="tip<%=evangelist.id.to_s%>" itemprop="description">
+        <div align="center"><%= link_to user_path(evangelist.user_id), title:"#{evangelist.user.bio.to_s}" do %><%= image_tag evangelist.user.image_user(:medium), class: "profile_image_s tip" %><%end%> </div>
+
+     </div>
+
+	<div class="name_i_s cl_gray ">
+        <span style="position:absolute; left:6px;"><i class="fa fa-pencil" aria-hidden="true"></i> <%= evangelist.come_e%></span>
+
+        <time style="float:right;margin-right:6px;" itemprop="uploadDate" content="<%= raw evangelist.created_at.to_s.slice(0, 10) %>T<%=raw evangelist.created_at.to_s.slice(11, 5)%>"/><%= time_ago_in_words(evangelist.created_at).gsub(/about/,"").gsub(/less than a/,"") %> ago</time>
+    </div>
+</div>
+</div>
+</div>
+
+<% end %>
+</div>
+
+<% if params[:search] != nil  %>
+    <% if @evangelists != nil || @evangelists_topic %>
+    <div align="center" class="mwid2">
+    <%= will_paginate @evangelists_topic, renderer: BootstrapPagination::Rails, next_label: ">>", previous_label: "<<", class: "btn-xs", :params => { :controller => "evangelists"}%>
+    </div>
+    <% end %>
+<% end %>

@@ -1,0 +1,77 @@
+<div class = "row">
+  <div class="top_alert">
+  <% flash.each do |name, value| %>
+      <div class="alert alert-<%= name == "notice" ? "success" : "error" %>">
+          <div align="center"><%= value %></div>
+      </div>
+  <%end%>
+</div>
+<div class = "col-md-12">
+<%= form_for @evangelist, :html => {:multipart => true} do |f| %>
+  <% if @evangelist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@evangelist.errors.count, "error") %> prohibited this evangelist from being saved:</h2>
+
+      <ul>
+      <% @evangelist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
+</div>
+<style type="text/css">
+#title_edit.medium-editor-placeholder:after {
+    left: 50%;
+    margin-left: -42px;
+    text-align: center;
+   }
+   .medium-editor-placeholder:after{
+    color: rgba(193, 191, 195, 0.72);
+   }
+    </style>
+
+<div class="container-fluid">
+
+    <%= f.hidden_field :title, autocomplete: "off", required: true , html: { id: "title" },
+     class: "title_s title_hidden",style: "width:100%;text-align: center; font-weight:400;", rows: 2 %>
+    <div class="editable title_s" data-field-id="title" data-placeholder="Title" style="margin-top:0px;margin-bottom: 21px;" align="center" id="title_edit">
+      <%if @evangelist.title == nil || @evangelist.title == "" %><%= @evangelist.title.to_s.try(:html_safe) %>
+      <%else%><p><%= @evangelist.title.to_s.try(:html_safe) %></p><%end%>
+    </div>
+    <style type="text/css">
+    .medium-editor-insert-plugin p { margin:0px;}
+    .paragraph p {margin-bottom: 0.68em;} 
+    .medium-editor-insert-plugin.medium-editor-placeholder:after {padding: 0;}
+    </style>
+
+    <%= f.hidden_field :paragraph1, autocomplete: "off" , required: true, html: { id: "body" },
+     class: "paragraph body_hidden", style: "width:100%", rows: 50 %>
+    <div class="editable paragraph" data-field-id="body" data-placeholder="All people can see this section" id="body_edit">
+    <%= @evangelist.paragraph1.to_s.try(:html_safe) %>
+    </div>
+
+    <h4 align="center" style="color:#333;">Only subscribers can read below</h4>
+    <%= f.hidden_field :extra, autocomplete: "off" , required: true, html: { id: "extra" },
+     class: "paragraph extra_hidden",  placeholder: "Extra content", style: "width:100%", rows: 50 %>
+    <div class="editable paragraph" data-field-id="extra" data-placeholder="Only subscribers can see this section" id="extra_edit">
+    <%= @evangelist.extra.to_s.try(:html_safe) %>
+    </div>
+    <br><br>
+    <h4 align="center">Tag1 Tag2 ... (Separated by space, up to 5 tags)</h4>
+    <%= f.text_field :all_categories,  autocomplete: "off" , required: true, html: { id: "tag" },
+     class: "form-control", id: "yt_tag", placeholder: "Tag1 Tag2 ... (Separated by space, up to 5 tags)", value: @evangelist.categories.map(&:name).join(" "), style: "width:100%"%><br>
+
+  <br/>
+
+<div align="center">
+    <%= f.button :submit,  class: "btn btn-default btn-lg"%>
+</div>
+
+<% end %>
+</div>
+<script type="text/javascript">
+function makeEditable(c){hljs.initHighlightingOnLoad();var d=new MediumEditor(c,{"autolink":true,toolbar:{buttons:['bold','italic','anchor','h2','h3','codeJS','tex','tex_inline']},buttonLabels:'fontawesome',extensions:{'codeJS':new MediumButton({label:'<i class="fa fa-code" aria-hidden="true"></i>',start:'<br><pre><code>',end:'</code></pre><br>',action:function(a,b){if(b)return'<!--'+a+'-->'+hljs.highlight('javascript',a.substring(3,a.length-4).replace(/(<\/p>|<p([^>]+)*>|&nbsp;|class="">)/g,"\n").replace(/</g,"<").replace(/>/g,">")).value;return a.split('-->')[0].split('<!--').join('')}}),'tex':new MediumButton({label:'∫',start:'<br><div align="center">',end:'</div><br>',action:function(a,b){if(b)return'<!--'+a+'-->'+katex.renderToString(a);return a.split('-->')[0].split('<!--').join('')}}),'tex_inline':new MediumButton({label:'∫_',start:'&nbsp;<span align="center">',end:'</span>&nbsp;',action:function(a,b){if(b)return'<!--'+a+'-->'+katex.renderToString(a);return a.split('-->')[0].split('<!--').join('')}})}});$(c).mediumInsert({editor:d,addons:{images:{fileUploadOptions:{url:'<%= upload_image_path%>',acceptFileTypes:/(\.|\/)(gif|jpe?g|png)$/i}}}})}$(function(){$("button").prop("type","button");$(".btn-primary").prop("type","submit");$(".btn-default").prop("type","submit");$('.editable').each(function(i,a){makeEditable(a)});$('.title_s .medium-insert-buttons-show').hide();$('#medium-editor-toolbar-1').hide();$('.medium-insert-buttons').hide();$('#title_edit.medium-editor-placeholder').show();if($('p').html()=="<br>"){$(this).hide()}$('.editable').bind('input propertychange focus active mouseleave',function(){$("#evangelist_"+$(this).attr("data-field-id")).val($(this).html());$('.title_hidden').val($('#title_edit').html());$('.body_hidden').val($('#body_edit').html());$('.extra_hidden').val($('#extra_edit').html());$('.title_s .medium-insert-buttons-show').hide();$('.title_s .medium-insert-buttons').hide();return})});
+</script>

@@ -1,0 +1,25 @@
+<h4 class="cl_b bg_wgray sougou">プレイリストに追加・または新しいプレイリストに追加 （ <%if @user != nil%><% if @user.playlist_now == 0%><i class="fa fa-play" aria-hidden="true"></i> を押すと次にそのプレイリストから再生します<%else%><span class="cl_r">次の曲をプレイリストから再生します</span><%end%><%else%>
+  <i class="fa fa-play" aria-hidden="true"></i> を押すと次にそのプレイリストから再生します<%end%>）</h4>
+<span style="margin-bottom:5px; width:220px;" class="cl_b">
+<%if @user != nil%>
+  <% @user.playlists.each do |p|%>
+
+    <%if !p.likes.pluck(:evangelist_id).include?(@evangelist.id)%>
+    <%= button_to playlist_add_path(formating: "show", eva_id: "#{@evangelist.id}", playlist_id: p.id), class: "btn-xs btn-default pl",title: @plist ,style: "float:left; border-radius:0;border-left:0;", remote: true do%><%=p.body.to_s + "(" + p.evangelists.size.to_s + ")"%><%end%>
+    <%else%><%= button_to playlist_remove_path(formating: "show", eva_id: "#{@evangelist.id}", playlist_id: p.id), class: "btn-xs btn-primary pl",title: @plist, style: "float:left; border-radius:0;border-left:0;", remote: true do%><%=p.body.to_s + "(" + p.evangelists.size.to_s + ")"%> 追加済み<%end%>
+    <%end%>
+    <%= button_to playlist_path(formating: "show", eva_id: "#{@evangelist.id}", id: p.id), method: :delete, data: {confirm: "プレイリストを削除しますか？"}, class: "btn-xs btn-default pl", title: @plist, style: "float:left; margin-right:5px;border-radius:0;border-left:0;", remote: true do%> <i class="fa fa-times" aria-hidden="true" style="color:#aaa; font-size: 14px;"></i><%end%>
+  <%end%>
+<%end%>
+</span>
+<span>
+
+<%end%>
+</span>
+<script type="text/javascript">
+$(function(){
+  $('.pl').powerTip({ placement: 'se' });
+});
+
+</script>
+<br><br>

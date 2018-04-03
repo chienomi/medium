@@ -1,0 +1,26 @@
+<div style="width:700px;margin:0 auto;">
+<h2>Report - bugs, advice, etc</h2>
+<h4>We can respont this if you logged in</h4>
+<%= form_for @onlineform, :html => {:multipart => true} do |f| %>
+    <span class="input-group-addon">* What is the issue?</span>
+    <%= f.radio_button :whatkind, 0 %> <%= f.label :whatkind, 'Bug' %>
+    <%= f.radio_button :whatkind, 1 %> <%= f.label :whatkind, 'Advice' %>
+    <%= f.radio_button :whatkind, 2 %> <%= f.label :whatkind, 'Report' %>
+    <%= f.radio_button :whatkind, 3 %> <%= f.label :whatkind, 'Others' %>
+    <br/><br/>
+  <span class="input-group-addon">* Body</span>
+    <%= f.text_area :body, autocomplete: "off", required: true, class: "form-control", id: "i_yt_url" , style: "width:100%",rows:"5"%>
+    <br/><br/>
+  <span class="input-group-addon">* Can we disclose this?</span>
+    <%= f.radio_button :disclose, 0 %> <%= f.label :disclose, 'disclose' %>
+    <%= f.radio_button :disclose, 1 %> <%= f.label :disclose, 'enclose' %>
+    <br/><br/>
+  <div class="form-actions" align="center">
+    <%= f.button :submit, class: "btn btn-primary", style: "width:10%" %>
+  </div>
+<% end %>
+
+</div>
+
+<h4 align="center">Now in pre-beta. Sorry for bugs in advance.</h4>
+</div>

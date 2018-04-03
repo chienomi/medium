@@ -1,0 +1,14 @@
+<% if params[:search] != nil && params['search'] != "" %>
+
+<div class=" sougou" align="center">
+        <h4>Tags like <b><%= @search_title %></b> (<%= @topic_tag_size %> total) </h4>
+</div>
+<% end %>
+<% @categories_topic.pluck(:name, :rating).each do |t| %>
+<% t = t.first%>
+<span style="margin-bottom:0.5em; list-style: none;">
+<div class="btn-group" role="group" area-label="Subscribe or Go to Categories"><!-- start button for trend -->
+<%= link_to t, category_path(t, cate_send: t), method: :get, class: "btn btn-default btn-xs", style: "margin-bottom:5px;margin-left:5px;" %>
+</div><!-- end button for trend -->
+</span><!-- end tag -->
+<% end %>

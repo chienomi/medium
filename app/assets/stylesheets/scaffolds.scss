@@ -1,0 +1,21 @@
+
+#notice {
+  color: #4DACDF;
+}
+
+.field_with_errors {
+  padding: 2px;
+  display: table;
+}
+
+#error_explanation {
+border-radius: 2px;
+  width: 80%;
+      max-width: 800px;
+    border: 1px solid rgba(225, 91, 80, 0.48);
+  border: 1px solid #E15B50;
+  padding: 2px;
+  padding-bottom: 0;
+  margin-bottom: 1em;
+  margin: 10px auto;
+}

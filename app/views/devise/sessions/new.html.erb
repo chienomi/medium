@@ -1,0 +1,40 @@
+<div align="center" style="height:45px"></div>
+<div class="row">
+<div class="col-md-4"></div>
+
+<div class="col-md-4">
+<h1 align="center"> Log in </h1>
+  <br>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+        <div class="form-inputs">
+            <div>
+              <%= f.text_field :user_name, required: false, autofocus: true, class: 'text_i', placeholder: " Name" %>
+          </div>
+          <br>
+          <div>
+              
+              <%= f.password_field :password, autocomplete: "off", required: false, class: 'text_i' , placeholder: " Password" %>
+          </div>
+          <br>
+          <div>
+              <% if devise_mapping.rememberable? %>
+              <%= f.check_box :remember_me, checked: true %> 　 <%= f.label :remember_me  %>
+              <% end %>
+            </div>
+        </div>
+        <br/>
+
+          <div class="form-actions" align="center">
+              <%= f.submit "Log in", class: 'btn btn-primary', style: "width:100%"%>
+          </div>
+  <% end %>
+  <br/>
+  <div align="right">
+    <%= link_to '... forget your password?', new_user_password_path, class: 'link'%>
+  </div>
+</div>
+
+  <div class="col-md-4"></div>
+
+  <div class = "row">

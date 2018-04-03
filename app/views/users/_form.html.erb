@@ -1,0 +1,71 @@
+<% if @user.id == current_user.id %>
+
+<div style="width:700px;margin:0 auto;">
+  <h2 align="center">Editing...</h2>
+<%= form_for @user, :html => {:multipart => true} do |f| %>
+<!--   <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %> -->
+  <div class="row">
+  <div class="col-md-12"> <!-- user start -->
+      <div class="user_name">
+        <%= f.text_field :user_name, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.user_name%>
+        <div id="form_image">
+        <%= render 'form_image' %>
+        </div>
+      <div id="image_user_update">
+         <%= f.file_field :image_user, :title => "Upload" %>
+      </div>
+
+      </div>
+      <div class="bio">
+        <% if @user.bio == "" %><% @user.bio = "Is " + @user.user_name + " is ninja? " + @user.user_name + "\'s bio is currently blank." %><%end%>
+        <%= f.text_field :bio, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.bio%>
+      </div>
+  </div> <!-- user end -->
+</div>
+<br><br>
+<!-- 
+    <span class="input-group-addon">Facebook Account URL</span>
+    <%= f.text_field :facebook, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.facebook%>
+    <br>
+
+  <span class="input-group-addon">Twitter Account URL</span>
+    <%= f.text_field :twitter, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.twitter%>
+    <br>
+
+    <span class="input-group-addon">YouTube Account URL</span>
+    <%= f.text_field :youtube, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.youtube%>
+    <br>
+
+  <span class="input-group-addon">Deviant Art Account URL</span>
+    <%= f.text_field :deviantart, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.deviantart%>
+    <br>
+
+      <span class="input-group-addon">Pixiv Account URL</span>
+    <%= f.text_field :pixiv, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.pixiv%>
+    <br>
+
+          <span class="input-group-addon">Sound Cloud Account URL</span>
+    <%= f.text_field :soundcloud, autocomplete: "off", required: false, class: "form-control" , style: "width:100%", value: @user.soundcloud%>
+    <br>
+ -->
+    <h4 align="center">Email (will not be public)</h4>
+    <%= f.text_field :email, autocomplete: "on", required: false, class: "form-control" , style: "width:100%", value: @user.email%>
+    <br><br><br>
+
+  <div align="center">
+    <%= f.submit "Done" , class: "btn btn-default", style: "width:10%"%>
+  </div>
+
+<% end %>
+</div>
+
+<% end %>

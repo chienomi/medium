@@ -1,0 +1,31 @@
+<div class="ue_45"></div>
+<div class="ue_45"></div>
+<div style="width:700px;margin:0 auto;">
+  <h2>Thanks for your report</h2>
+  <div class="row">
+
+    <div class="col-md-12">
+      <% if @onlineform.disclose == 1 && @user.id != 1 %>
+      <h2>Kept in private</h2>
+      <% elsif @onlineform.disclose == 0 || @user.id == 1 %>
+
+        <% if @onlineform.whatkind == 0 %>
+        <h2>Bug</h2>
+        <% elsif @onlineform.whatkind == 1 %>
+          <h2>Advice</h2>
+        <% elsif @onlineform.whatkind == 2 %>
+          <h2>Report</h2>
+        <% elsif @onlineform.whatkind == 3 %>
+          <h2>Other</h2>
+        <% end %>
+
+        <br>
+          <%= @onlineform.body %><br>
+           <% if @user.id == 1 %>
+            <%= link_to 'Edit', edit_onlineform_path(@onlineform) %> | <%= link_to 'Destroy', @onlineform, method: :delete, data: { confirm: 'Are you sure?' } %>
+           <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>
+

@@ -1,0 +1,13 @@
+<%= comments_tree_for(@conversations) %>
+
+<script type="text/javascript">
+$(function(){
+    var id_c_r;
+    var id_c_o;
+    $('.replay').click(function(){
+        id_c_r = $(this).get(0).id;
+        id_c_o = '#parent_id' + id_c_r;
+        $(id_c_o).toggle();
+    });
+});
+</script>

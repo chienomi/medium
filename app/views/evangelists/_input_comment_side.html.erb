@@ -1,0 +1,55 @@
+<%= form_for [@evangelist, @evangelist.conversations.build], remote: true do |f| %>
+	<div id="send_left" style="position:relative">
+        <% if @showside_num_c ==1 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 1%>
+        <% elsif @showside_num_c == 2 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 2%>
+        <% elsif @showside_num_c == 3 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 3%>
+        <% elsif @showside_num_c == 4 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 4%>
+        <% elsif @showside_num_c == 5 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 5%>
+        <% elsif @showside_num_c == 6 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 6%>
+        <% elsif @showside_num_c == 7 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 7%>
+        <% elsif @showside_num_c == 8 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 8%>
+        <% elsif @showside_num_c == 9 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 9%>
+        <% elsif @showside_num_c == 10 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 10%>
+        <% elsif @showside_num_c == 11 %>
+            <%= f.text_area :paragraph, id: "c_i_s", class: "form-control" , rows: '3'%>
+            <%= f.hidden_field :showside_num, value: 11%>
+        <%end%>
+    </div>
+
+    <% if user_signed_in? %>
+        <div id="send_right" align="right" style="width:100%">
+            <button type="submit" id="send_c_s" class="btn btn-primary" style="width:100%">
+            <span class='glyphicon glyphicon-pencil'></span>
+            </button>
+        </div>
+    <% else %>
+    	<div id="send_right" style="width:100%">
+            <button type="button" id="loginfirst" class="btn btn-primary" style="width:100%">
+                <span class='glyphicon glyphicon-pencil'></span>
+            </button>
+        </div>
+    <%end%>
+<%end%>
+<script type="text/javascript">
+$(document).ready(function(){$("a.pop_login").click(function(){var o=$(window).width(),i=$(window).height();$("#pop_login").css({left:o/2-$("#pop_login").width()/2,top:i/2-$("#pop_login").height()/2}),$("#mask").fadeTo("slow",.5),$("#pop_login").fadeTo("slow",1)}),$("#mask").click(function(){$("#pop_login,#mask").hide()})}),$(document).ready(function(){$("a.pop_signin").click(function(){var o=$(window).width(),i=$(window).height();$("#pop_signin").css({left:o/2-$("#pop_signin").width()/2,top:i/2-$("#pop_signin").height()/2}),$("#mask").fadeTo("slow",.5),$("#pop_signin").fadeTo("slow",1)}),$("#mask").click(function(){$("#pop_signin,#mask").hide()})}),$(document).ready(function(){$("#loginfirst,.loginfirst").click(function(){var o=$(window).width(),i=$(window).height();$("#pop_loginfirst").css({left:o/2-$("#pop_loginfirst").width()/2,top:i/2-$("#pop_loginfitst").height()/2}),$("#mask").fadeTo("slow",.5),$("#pop_loginfirst").fadeTo("slow",1)}),$("#mask").click(function(){$("#pop_loginfirst,#mask").hide()}),$("#button_to_login").click(function(){$("#pop_loginfirst").hide();var o=$(window).width(),i=$(window).height();$("#pop_login").css({left:o/2-$("#pop_login").width()/2,top:i/2-$("#pop_login").height()/2}),$("#pop_login").fadeTo("slow",1)}),$("#button_to_signup").click(function(){$("#pop_loginfirst").hide();var o=$(window).width(),i=$(window).height();$("#pop_signin").css({left:o/2-$("#pop_signin").width()/2,top:i/2-$("#pop_signin").height()/2}),$("#pop_signin").fadeTo("slow",1)})}),$(document).ready(function(){$("#pop_login,#pop_signin").bind("ajax:success",function(o,i,n,t){console.log("success")}).bind("ajax:error",function(o,i,n,t){console.log(i.responseText)})}),$("body").noisy({intensity:1,size:100,opacity:1,fallback:"fallback.png",randomColors:!1,color:"#FAFAF8"});
+</script>

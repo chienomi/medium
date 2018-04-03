@@ -1,0 +1,6 @@
+if (gon.index_tag == 1) {
+	$('#tag_e').empty().append("<%= j render 'evangelists/tag' %>");
+}else if (gon.index_tag == 0){
+	$('#tag_i_all').empty().append("<%= j render 'evangelists/tag_i' %>");
+	$('#sidebar-wrapper').empty().append("<%= j render 'evangelists/sidebar' %>");
+};

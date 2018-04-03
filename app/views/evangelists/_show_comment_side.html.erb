@@ -1,0 +1,29 @@
+<div align="left" id="side_show_comment_o">
+    <% @evangelist.conversations.each do |conversation| %>
+       	<%if conversation.showside_num == @showside_num_c %>
+		            <li class="quote">
+		                <%= conversation.paragraph %><br>
+		                <div align="right" style="display:inline"><%= conversation.user_name %></div>
+
+		                <% if user_signed_in? %>
+		                    <% if @evangelist.user_id == current_user.id || conversation.user_id == current_user.id %>
+		                    	<div align="right" style="display:inline">
+		                      		<%= link_to " x", evangelist_conversation_path(conversation.evangelist, conversation), method: :delete, data: {confirm: "Delete this Comment?"} ,class: "link-cautious"%>
+		                      	</div>
+		                    <%end%>
+		            	<%end%>
+		            </li>
+		<%end%>
+    <%end%>
+</div>
+<style type="text/css">
+#side_show_comment_o{
+	max-height: 500px;
+	overflow: scroll;
+}
+.quote{
+	border-left: solid 5px #030d1e;
+	margin-bottom: 25px;
+	padding-left: 25px;padding-top: 0px;
+}
+</style>

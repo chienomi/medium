@@ -1,0 +1,32 @@
+<div align="center">
+		<h2 class="magicfont">Welcome Back!</h2>
+	</div>
+	<br>
+	<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+	<%= devise_error_messages! %>
+		<div class="form-inputs" id="pop_login_i">
+			<h4>ユーザー名</h4>
+		  	<div>
+		    	<%= f.text_field :user_name, required: true, autofocus: true, class: 'text_i_b', placeholder: "Username" %>
+			</div>
+
+			<h4 style="margin-top:1em;">パスワード</h4>
+			<div>
+		    	<%= f.password_field :password, autocomplete: "off", required: true, class: 'text_i_b' , placeholder: " Password " %>
+			</div>
+			<br>
+			<div>
+		    	<% if devise_mapping.rememberable? %>
+		    	<%= f.check_box :remember_me, {checked: true} %>  <%= f.label :remember_me  %>
+		    	<% end %>
+		    </div>
+		    <br>
+		    <%= link_to '... forget your password?', new_user_password_path , class: 'link_b' %>
+		</div>
+		<br/>
+
+		<div class="form-actions" align="center">
+		    <%= f.submit "LOG IN", class: 'button_b'%>
+		</div>
+	<% end %>
+	<br/>

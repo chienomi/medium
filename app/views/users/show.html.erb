@@ -1,0 +1,177 @@
+<div class="ue_42">
+  <% flash.each do |name, value| %>
+      <div class="alert alert-<%= name %> custom-alert">
+          <div align="center"><%= value %></div>
+      </div>
+  <%end%>
+</div>
+
+<div class="container" style="margin-top:42px;">
+<div class="row">
+    <div class="col-md-12"> <!-- user start -->
+      <div align="center">
+        <%= link_to @user, class: "link" do%><%= image_tag @user.image_user.url(:medium), class: "profile_image_s_e" %><%end%>
+      </div>
+      <div class="bio_e_r">
+          <% if @user == current_user%><%= button_to 'Edit your profile', edit_user_path(@user.id), method: :get, class: "btn btn-default btn-sm", style: "display: inline-block;"%><%else%><%= render 'charges/new'%><%end%>
+      </div>
+      <div align="center" style="font-weight: 900; font-size: 12px; margin-top: 2px;">
+        <%= link_to @user.user_name, @user, class: "link" %>
+      </div>
+      <div class="bio_e" align="center">
+        <%if @user.bio == "" %>Is <%= @user.user_name %> is ninja? <%= @user.user_name %>'s bio is currently blank.<% else %><%= @user.bio%><% end %>
+      </div>
+      <div class="bio_e_u" align="center"> Submitted: <%= pluralize(@user.evangelists.size, "post") %>, Member since <%= @user.created_at.to_s.slice(0, 10).gsub(/-/,"/")%> </div>
+    </div> <!-- user end -->
+</div>
+
+<div class="row">
+  <div align="center"><h4><a href="/material/new"> Create New </a></h4></div>
+  <div align="center" style="margin:2em;"><h4>Contents You Commented</h4></div>
+  <% a_c_e = [] %>
+<% @user.conversations.order("created_at DESC").each do |conversation| %>
+<% evangelist = conversation.evangelist %>
+<% if !a_c_e.include?(evangelist.id) %>
+  <%if evangelist != nil%>
+  <div class="col-xs-12 col-sm-4 col-md-4" itemscope itemtype="http://schema.org/NewsArticle">
+  <div class="thumbnails">
+    <div class="thumbnail_p">
+            <%= link_to evangelist do %>
+            <%if evangelist.yt_img0 != "" %><%= image_tag evangelist.yt_img0, class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% else %><%= image_tag 'uni_light.jpeg', class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% end %>
+              <span class="_dwc"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;<%= evangelist.yt_duration %></span>
+          <div class="cl_w ts in_thumbnail" itemprop="name">
+              <%= evangelist.title %>
+          </div>
+          <div class="hvr-radial-out">
+          </div>
+          <%end%>
+      </div><link itemprop="embedUrl" content="<%=@show_src%>" />
+<div class="inside_thumb">
+    <div class="name_i cl_gray tip" id="tip<%=evangelist.id.to_s%>" itemprop="description">
+        <div align="center"><%= link_to user_path(evangelist.user_id), title:"#{evangelist.user.bio.to_s}" do %><%= image_tag evangelist.user.image_user(:medium), class: "profile_image_s tip" %><%end%> </div>
+
+     </div>
+
+  <div class="name_i_s cl_gray ">
+        <span style="position:absolute; left:6px;"><i class="fa fa-pencil" aria-hidden="true"></i> <%= evangelist.come_e%></span>
+        <time style="float:right;margin-right:6px;" itemprop="uploadDate" content="<%= raw evangelist.created_at.to_s.slice(0, 10) %>T<%=raw evangelist.created_at.to_s.slice(11, 5)%>"/><%= time_ago_in_words(evangelist.created_at).gsub(/about/,"").gsub(/less than/,"") %> ago</time>
+    </div>
+</div>
+  </div>
+  </div>
+  <%end%>
+  <%end%>
+  <% a_c_e.push(evangelist.id) %>
+<%end%>
+</div>
+
+
+<% if user_signed_in? %>
+<% if current_user.id == 1 %>
+<div align="center">For The Master Account</div>
+
+<div class="row">
+  <div align="center"><h1 align="center" style="margin-bottom: 0px; margin-top: 36px;"><%= @user.evangelists.count %></h1></div>
+  <div align="center"><h4>Materials</h4></div>
+
+<% @user_evas.each do |evangelist| %>
+  <%if evangelist != nil%>
+  <div class="col-xs-12 col-sm-4 col-md-4" itemscope itemtype="http://schema.org/NewsArticle">
+  <div class="thumbnails">
+    <div class="thumbnail_p">
+            <%= link_to evangelist do %>
+            <%if evangelist.yt_img0 != "" %><%= image_tag evangelist.yt_img0, class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% else %><%= image_tag 'uni_light.jpeg', class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% end %>
+              <span class="_dwc"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;<%= evangelist.yt_duration %></span>
+          <div class="cl_w ts in_thumbnail" itemprop="name">
+              <%= evangelist.title %>
+          </div>
+          <div class="hvr-radial-out">
+          </div>
+          <%end%>
+      </div><link itemprop="embedUrl" content="<%=@show_src%>" />
+<div class="inside_thumb">
+    <div class="name_i cl_gray tip" id="tip<%=evangelist.id.to_s%>" itemprop="description">
+        <div align="center"><%= link_to user_path(evangelist.user_id), title:"#{evangelist.user.bio.to_s}" do %><%= image_tag evangelist.user.image_user(:medium), class: "profile_image_s tip" %><%end%> </div>
+        <div class="cl_b profile_name_s" itemprop="director" align="center">
+            <%= link_to evangelist.user_name, user_path(evangelist.user_id) %>
+         </div>
+     </div>
+
+  <div class="name_i_s cl_gray ">
+        <span style="position:absolute; left:6px;"><i class="fa fa-pencil" aria-hidden="true"></i> <%= evangelist.come_e%></span>
+     <!--    <span style="position:absolute; left:52px;"><i class="fa fa-star" aria-hidden="true"></i> <%= evangelist.likes_e%></span> -->
+        <time style="float:right;margin-right:6px;" itemprop="uploadDate" content="<%= raw evangelist.created_at.to_s.slice(0, 10) %>T<%=raw evangelist.created_at.to_s.slice(11, 5)%>"/><%= time_ago_in_words(evangelist.created_at).gsub(/about/,"").gsub(/less than/,"") %> ago</time>
+    </div>
+</div>
+  </div>
+  </div>
+  <%end%>
+<%end%>
+</div>
+
+
+</div>
+
+    <% if @user_evas != nil %>
+    <div align="center" class="mwid2">
+    <%= will_paginate @user_evas, renderer: BootstrapPagination::Rails, next_label: ">>", previous_label: "<<", class: "btn-xs", :params => { :controller => "users"}%>
+    </div>
+    <%end%>
+
+
+<div class="row">
+  <div align="center"><h4>Only you can see below</h4></div>
+  <div align="center"><h1 align="center" style="margin-bottom: 0px; margin-top: 36px;"></h1></div>
+  <div align="center"><h4><%= @user.followers.count %> subscribed</h4></div>
+
+  <% @user.followers.each do |user| %>
+    <div class="col-md-12" style="margin-bottom: 28px;"> <!-- user start -->
+      <div align="center">
+        <%= link_to user, class: "link" do%><%= image_tag user.image_user.url(:medium), class: "profile_image_s_e" %><%end%>
+      </div>
+
+      <div align="center" style="font-weight: 900; font-size: 12px; margin-top: 2px;">
+        <%= link_to user.user_name, user, class: "link" %>
+      </div>
+      <div class="bio_e" align="center">
+        <%if user.bio == "" %>Is <%= @user.user_name %> is ninja? <%= @user.user_name %>'s bio is currently blank.<% else %><%= @user.bio%><% end %>
+      <!-- <span style="float:right;margin:auto 0;font-size:14px; color: #9e9ca2;"> Member since <%= @user_p.created_at.to_s.slice(0, 7).gsub(/-/,"/")%></span> -->
+      </div>
+      <div class="bio_e_u" align="center"> Submitted: <%= pluralize(user.evangelists.size, "post") %>, Member since <%= user.created_at.to_s.slice(0, 10).gsub(/-/,"/")%> </div>
+    </div> <!-- user end -->
+  <% end %>
+</div>
+
+<div class="row">
+  <div align="center"><h1 align="center" style="margin-bottom: 0px; margin-top: 36px;"></h1></div>
+  <div align="center"><h4><%= @user.following.count %> subscribing</h4></div>
+
+  <% @user.following.each do |user| %>
+    <div class="col-md-12" style="margin-bottom: 28px;"> <!-- user start -->
+      <div align="center">
+        <%= link_to user, class: "link" do%><%= image_tag user.image_user.url(:medium), class: "profile_image_s_e" %><%end%>
+      </div>
+      <div class="bio_e_r">
+          <%= button_to 'Unsubscribe', unsubscribe_user_charges_path(@user.id, user_c_id: user.id), method: :post, class: "btn btn-default btn-sm", style: "display: inline-block;"%>
+      </div>
+      <div align="center" style="font-weight: 900; font-size: 12px; margin-top: 2px;">
+        <%= link_to user.user_name, user, class: "link" %>
+      </div>
+      <div class="bio_e" align="center">
+        <%if user.bio == "" %>Is <%= @user.user_name %> is ninja? <%= @user.user_name %>'s bio is currently blank.<% else %><%= @user.bio%><% end %>
+      <!-- <span style="float:right;margin:auto 0;font-size:14px; color: #9e9ca2;"> Member since <%= @user_p.created_at.to_s.slice(0, 7).gsub(/-/,"/")%></span> -->
+      </div>
+      <div class="bio_e_u" align="center"> Submitted: <%= pluralize(user.evangelists.size, "post") %>, Member since <%= user.created_at.to_s.slice(0, 10).gsub(/-/,"/")%> </div>
+    </div> <!-- user end -->
+  <% end %>
+
+</div>
+
+<% end %>
+<% end %>
+
+

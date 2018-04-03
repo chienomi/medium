@@ -1,0 +1,49 @@
+<!-- <div>
+	<% flash.each do |name, value| %>
+			<div class="alert alert-<%= name == "notice" ? "success" : "error" %>" style="text-shadow: none;">
+					<div align="center"><%= value %></div>
+			</div>
+	<%end%>
+</div> -->
+<div class="title_h1_padding">
+<h1 class="cl_w" style="margin: 10px 10px;">MediumEditor Demo</h1>
+<h3 class="cl_w2 title_down" >The easiest way to make a contract.</h3>
+</div>
+<div align="center">
+<h4 class="cl_w2" align="center" style="margin: 10px 10px; margin-top: 24px; font-size: 17px; color: rgb(252, 252, 253); position: absolute; bottom:12px; left: calc(50% + 24px);  margin-left: -110px;"><a class="btn click_to_scr" type="button" onfocus="this.blur();" href="#section2" style="color: rgba(255, 255, 255, 0.8);"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a></h4>
+</div>
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $(".click_to_scr").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 500, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
+<%if user_signed_in? %>
+<%else%>
+<div class="row" style="max-width:500px; margin: auto; left:0; right:0; margin-top: 20px;" align="center">
+	<h4 style="color:#fff;" class="title_down"> Login via </h4>
+  <br>
+  <%= link_to user_omniauth_authorize_path(:facebook), class: "btn btn-default_w", style: "color: #fff;" do %><i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp; Facebook <% end %>
+  <%= link_to user_omniauth_authorize_path(:google), class: "btn btn-default_w", style: "color: #fff;" do %><i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp; Google+ <% end %>
+</div>
+<%end%>

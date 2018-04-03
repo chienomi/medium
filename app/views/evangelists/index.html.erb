@@ -1,0 +1,46 @@
+<% if !user_signed_in? %>
+<div class="top_cover_img">
+<%else%>
+<div>
+<%end%>
+<div class="top_cover_inside">
+  <div class="ue_42">
+  <% flash.each do |name, value| %>
+      <div class="alert alert-<%= name %> custom-alert" style="text-shadow: none;">
+          <div align="center"><%= value %></div>
+      </div>
+  <%end%>
+  </div>
+
+  <% if !user_signed_in? %>
+  <div align="center" id="ytform_all">
+    <%= render 'evangelists/ytform' %>
+  </div>
+  <% end %>
+
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="padding_ue_1 minw2" align="center"><h2> All materials</h2></div>
+    <div id="topic_video_tag_index" class="mwid2">
+    <%= render 'evangelists/topic_video' %>
+    </div>
+    <% if @evangelists != nil || @evangelists_topic %>
+    <div align="center" class="mwid2">
+    <%= will_paginate @evangelists_topic, renderer: BootstrapPagination::Rails, next_label: ">>", previous_label: "<<", class: "btn-xs", :params => { :controller => "evangelists"}%>
+    </div>
+<% end %>
+</div>
+</div><!-- quit container -->
+
+<!-- popup -->
+<div id="pop_loginfirst", class="pop">
+  <h2 align="center" style="margin:15px;"> Welcome </h2>
+  <h4 align="center" style="margin:5px;"> Log in via </h4>
+  <br>
+  <%= link_to user_omniauth_authorize_path(:facebook), role:"menuitem", tabindex: "-1", class: "btn btn-default_w", style: "color: #fff;width:150px;" do %><i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp; Facebook <% end %><br><br>
+  <%= link_to user_omniauth_authorize_path(:google), role:"menuitem", tabindex: "-1", class: "btn btn-default_w", style: "color: #fff; width:150px;" do %><i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp; Google+ <% end %>
+  <br><br>
+</div>

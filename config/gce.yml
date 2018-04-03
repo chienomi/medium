@@ -1,0 +1,10 @@
+development:
+  provider: Google
+  google_storage_access_key_id: <%= ENV["GOOG_ST_A"] %>
+  google_storage_secret_access_key: <%= ENV["GOOG_ST_S"] %>
+  path_style: true
+production:
+  provider: Google
+  google_storage_access_key_id: <%= ENV["GOOG_ST_A"] %>
+  google_storage_secret_access_key: <%= ENV["GOOG_ST_S"] %>
+  path_style: true

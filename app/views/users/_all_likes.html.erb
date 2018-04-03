@@ -1,0 +1,74 @@
+
+<% if @user != nil %>
+<% @liked_evangelists.each do |evangelist| %>
+          <div class="media">
+            <div class="media-left" style="width:4em; overflow:hidden;">
+<li class="like_list_e like_list_e_i">
+  <div class="likes_e_i_div" align="center">
+  <%= evangelist.likes_e %>
+  </div>
+    <h4 style="display:inline; line-height:1.3em">
+      <% if user_signed_in? %>
+              <% if current_like_of(evangelist) %>
+                <%= link_to ('<i class="fa fa-heart" aria-hidden="true" style="color:#FF006E; font-size:1.3em;"></i>').html_safe, evangelist_like_path(evangelist, current_like_of(evangelist),formating: 'user'), :method => :delete, :remote => true, :format => :js%>
+              <% else %>
+                <%= link_to ('<i class="fa fa-heart-o" aria-hidden="true" style="color:#FF006E;font-size:1.3em;"></i>').html_safe, evangelist_likes_path(evangelist, formating: 'user'), :method => :post, :remote => true, :format => :js%>
+              <% end %>
+      <% else %>
+            <a id="loginfirst" role="button"><i class="fa fa-heart-o" aria-hidden="true" style="color:#FF006E;font-size:1.3em;"></i></a>
+      <% end %>
+  </h4>
+</li>
+</div>
+
+            <div class="media-left">
+              <div class="image_i_div">
+              <%= link_to evangelist do %>
+                <%= image_tag evangelist.yt_img0, class: "article-index"%>
+              <% end %>
+              </div>
+
+            </div>
+            <div class="media-body" align="left">
+
+              <%if evangelist.title_s != nil%>
+                <div class ="title_i">
+                  <%= link_to evangelist.title_s, evangelist, class: "link"%>
+                </div>
+              <%else%>
+                <div class ="title_i">
+                  <%= link_to evangelist.title, evangelist, class: "link"%>
+                </div>
+              <%end%>
+
+              <div class="name_i">
+                <%= time_ago_in_words(evangelist.created_at) %> ago by <%= link_to evangelist.user_name, evangelist.user, class: "link"%>
+              </div>
+              <div style="height:5px;"></div>
+  <div class="tag_i_group_all">
+  <% evangelist.categories.pluck(:name).each do |t| %>
+    <div class="btn-group tag_i_group" role="group" area-label="Subscribe or Go to Categories">
+
+    <% if user_categorize?(t) %>
+      <%= button_to cate_path(cate_id(t)), method: :delete, class: 'btn btn-primary btn-xs', remote: true, params: {cate: t, eva_id: evangelist.id,formating: 'user'} do%>
+        <i class="fa fa-heart" aria-hidden="true" style="color:#FF006E; font-size:1.0em;"></i>
+      <% end %>
+    <% else %>
+      <%= button_to cate_index_path, class: 'btn btn-primary btn-xs', remote: true, params: {cate: t, eva_id: evangelist.id,formating: 'user'} do%>
+        <i class="fa fa-heart" aria-hidden="true" style="color:#FFFFFF; font-size:1.0em;"></i>
+      <% end %>
+    <% end %>
+
+      <button type="button" class="btn btn-primary btn-xs" style="background: linear-gradient(to bottom, #F7FAFF 0%,#fff 40% , #fff 60% ,#FFFBFF 100%);"><%= link_to t, category_path(t) %></button>
+
+      <!-- <button type="button" class="btn btn-primary btn-xs" style="cursor: default;"><%= i_subscriber(t) %></button> -->
+    </div>
+  <%end%><!-- end of eva.cate -->
+</div>
+
+  </div>
+</div>
+
+<% end %><!-- end of @evangelists.each -->
+
+<%end%>

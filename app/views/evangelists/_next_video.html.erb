@@ -1,0 +1,41 @@
+<%if @next_e != nil %>
+<h2 align="center">
+    Related News
+</h2>
+
+<% @next_e.each do |evangelist| %>
+<% if evangelist != @evangelist%>
+<div class="col-xs-12 col-sm-4 col-md-4" itemscope itemtype="http://schema.org/NewsArticle">
+<div class="thumbnails">
+    <div class="thumbnail_p">
+        <%= link_to evangelist do %>
+            <%if evangelist.yt_img0 != "" %><%= image_tag evangelist.yt_img0, class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% else %><%= image_tag 'uni_light.jpeg', class: "thumbnail_img", itemprop: "thumbnailUrl", alt: "Sumbnail not found..."%>
+            <% end %>
+          <span class="_dwc"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;<%= evangelist.yt_duration %></span>
+          <div class="cl_w ts in_thumbnail" itemprop="name">
+              <%= evangelist.title %>
+          </div>
+          <div class="hvr-radial-out">
+          </div>
+          <%end%>
+      </div><link itemprop="embedUrl" content="<%=@show_src%>" />
+<div class="inside_thumb">
+    <div class="name_i cl_gray tip" id="tip<%=evangelist.id.to_s%>" itemprop="description">
+        <div align="center"><%= link_to user_path(evangelist.user_id), title:"#{evangelist.user.bio.to_s}" do %><%= image_tag evangelist.user.image_user(:medium), class: "profile_image_s tip" %><%end%> </div>
+        <div class="cl_b profile_name_s" itemprop="director" align="center">
+            <%= link_to evangelist.user_name, user_path(evangelist.user_id) %>
+         </div>
+     </div>
+
+  <div class="name_i_s cl_gray ">
+        <span style="position:absolute; left:6px;"><i class="fa fa-pencil" aria-hidden="true"></i> <%= evangelist.come_e%></span>
+        <time style="float:right;margin-right:6px;" itemprop="uploadDate" content="<%= raw evangelist.created_at.to_s.slice(0, 10) %>T<%=raw evangelist.created_at.to_s.slice(11, 5)%>"/><%= time_ago_in_words(evangelist.created_at).gsub(/about/,"").gsub(/less than a/,"") %> ago</time>
+    </div>
+</div>
+</div>
+</div>
+
+<% end %>
+<% end %>
+<% end %>

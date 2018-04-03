@@ -1,0 +1,62 @@
+<% if @user != nil %>
+<% if @user.id = current_user.id %>
+<div class="container">
+  <div class="row">
+    <h2 style="float:left; padding-right:1em;">バンしているタグ一覧 </h2>
+
+
+<span class="btn-group">
+    <button class="btn btn-default btn-sm" id="tag-edit-link" type="button"> バンしているタグ一覧を表示 <i class="fa fa-tags" aria-hidden="true"></i> <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+</span>
+<div class = "form-group" id = "tag_edit" style="display: none;">
+<% @user.hates.pluck(:name).each do |t| %>
+<span style="margin-bottom:0.5em; list-style: none;">
+  <div class="btn-group" role="group" area-label="Subscribe or Go to Categories"><!-- start button for trend -->
+    <% if @user != nil%>
+        <% if user_categorize?(t) %><!-- start? -->
+          <%= button_to cate_path(cate_id(t)), method: :delete, class: 'btn btn-primary btn-xs fst_btn', remote: true, format: 'js', params: {cate: t, search: params[:search], formating: 'user'} do%>
+            <i class="fa fa-star cl_y" aria-hidden="true" style="font-size: 14px;"></i>
+          <% end %>
+        <% else %>
+          <%= button_to cate_index_path, class: 'btn btn-primary btn-xs fst_btn', remote: true, format: 'js', params: {cate: t, search: params[:search], formating: 'user'} do%>
+            <i class="fa fa-star" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i>
+          <% end %>
+        <% end %><!-- endof? -->
+    <% else %>
+            <a role="button" class='btn btn-primary btn-xs loginfirst'><i class="fa fa-star" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i></a>
+    <% end %>
+
+<%= button_to t+"("+i_video_num(t).to_s+")" , category_path(t), method: :get,id: "md_btn", class: "btn btn-primary btn-xs br_tx md_btn", style: "background: linear-gradient(to bottom, #F7FAFF 0%,#fff 40% , #fff 60% ,#FFFBFF 100%);" , params: {cate_send: t} %>
+
+    <% if @user != nil%>
+        <% if user_ban?(t) %><!-- start? -->
+          <%= button_to ban_path(ban_id(t)), method: :delete, class: 'btn btn-primary btn-xs fst_btn', remote: true, format: 'js', params: {cate: t, search: params[:search], formating: 'user'} do%>
+            <i class="fa fa-times" aria-hidden="true" style="color:#f33; font-size: 14px;"></i>
+          <% end %>
+        <% else %>
+          <%= button_to ban_index_path, class: 'btn btn-primary btn-xs fst_btn', remote: true, format: 'js', params: {cate: t, search: params[:search], formating: 'user'} do%>
+            <i class="fa fa-times" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i>
+          <% end %>
+        <% end %><!-- endof? -->
+    <% else %>
+            <a role="button" class='btn btn-primary btn-xs loginfirst'><i class="fa fa-times" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i></a>
+    <% end %>
+
+  </div><!-- end button for trend -->
+</span><!-- end tag -->
+<% end %>
+</div>
+
+</div>
+</div>
+<% end %>
+<% end %>
+
+<script type="text/javascript">
+$(function(){
+
+      $('#tag-edit-link').click(function() {
+            $('#tag_edit').toggle(425);
+          });
+});
+</script>

@@ -1,0 +1,81 @@
+<% if @evangelists == nil %>
+<div align="left">
+  ...
+</div>
+<% else %>
+<div align="left">
+ <a href="#" title="このリストは？" data-toggle="popover" data-placement="bottom" data-content="..."><i class="fa fa-question-circle cl_y" aria-hidden="true"></i></a>
+</div>
+<% @evangelists.each do |evangelist| %>
+          <div class="media">
+            <div class="media-left" style="width:4em; overflow:hidden;">
+<li class="like_list_e like_list_e_i">
+  <div class="likes_e_i_div">
+  <%= evangelist.likes_e %>
+  </div>
+    <h4 style="display:inline; line-height:1.3em">
+      <% if @user != nil %>
+              <% if current_like_of(evangelist) %>
+                <%= link_to ('<i class="fa fa-star cl_y" aria-hidden="true" font-size:1.3em;"></i>').html_safe, evangelist_like_path(evangelist, current_like_of(evangelist), category: params[:category]), :method => :delete, :remote => true, :format => :js%>
+              <% else %>
+                <%= link_to ('<i class="fa fa-star-o cl_y" aria-hidden="true" font-size:1.3em;"></i>').html_safe, evangelist_likes_path(evangelist, category: params[:category]), :method => :post, :remote => true, :format => :js%>
+              <% end %>
+      <% else %>
+            <a id="loginfirst" role="button"><i class="fa fa-heart-o" aria-hidden="true" style="color:#FF006E;font-size:1.3em;"></i></a>
+      <% end %>
+  </h4>
+</li>
+</div>
+            <div class="media-left">
+              <div class="image_i_div">
+              <%= link_to evangelist do %>
+                <%= image_tag evangelist.yt_img0, class: "article-index"%>
+              <% end %>
+              </div>
+
+            </div>
+            <div class="media-body" align="left">
+
+              <%if evangelist.title_s != nil %>
+                <div class ="title_i"><%= link_to evangelist.title_s, evangelist, class: "link"%></div>
+              <%else%>
+                <div class ="title_i"><%= link_to evangelist.title, evangelist, class: "link"%></div>
+              <%end%>
+
+              <div class="name_i cl_gray"><%= time_ago_in_words(evangelist.created_at) %> ago</div>
+              <div style="height:5px;"></div>
+  <div class="tag_i_group_all">
+  <% evangelist.categories.pluck(:name).each do |t| %>
+    <div class="btn-group tag_i_group" role="group" area-label="Subscribe or Go to Categories">
+  <% if user_signed_in? %>
+    <% if user_categorize?(t) %>
+      <%= button_to cate_path(cate_id(t), category: params[:category]), method: :delete, class: 'btn btn-primary btn-xs', remote: true, params: {cate: t, eva_id: evangelist.id} do%>
+        <i class="fa fa-star cl_y" aria-hidden="true" style="font-size:1.0em;"></i>
+      <% end %>
+    <% else %>
+      <%= button_to cate_index_path(category: params[:category]), class: 'btn btn-primary btn-xs', remote: true, params: {cate: t, eva_id: evangelist.id} do%>
+        <i class="fa fa-star cl_y" aria-hidden="true" style=" font-size:1.0em;"></i>
+      <% end %>
+    <% end %>
+  <% else %>
+            <a id="loginfirst" role="button" class='btn btn-primary btn-xs'><i class="fa fa-heart" aria-hidden="true" style="color:#FFFFFF; font-size:1.0em;"></i></a>
+  <% end %>
+
+      <button type="button" class="btn btn-primary btn-xs" style="background: linear-gradient(to bottom, #F7FAFF 0%,#fff 40% , #fff 60% ,#FFFBFF 100%);"><%= link_to t, category_path(t) %></button>
+
+    </div>
+  <%end%><!-- end of eva.cate -->
+</div>
+
+  </div>
+</div>
+
+<% end %><!-- end of @evangelists.each -->
+
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+</script>

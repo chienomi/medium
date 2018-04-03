@@ -1,0 +1,75 @@
+<% if @categories != nil %>
+<% @categories.pluck(:name, :rating).each do |t| %>
+<% t = t.first%>
+<div class="row_2">
+<li style="margin-bottom:0.5em; list-style: none;">
+	<div class="btn-group" role="group" area-label="Subscribe or Go to Categories"><!-- start button for trend -->
+		<% if @user != nil%>
+		    <% if user_categorize?(t) %><!-- start? -->
+
+		      <%= button_to cate_path(cate_id(t)), method: :delete, class: 'btn btn-primary btn-xs fst_btn', remote: true, params: {cate: t} do%>
+		        <i class="fa fa-star cl_y" aria-hidden="true" style="font-size: 14px;"></i>
+		      <% end %>
+		    <% else %>
+		      <%= button_to cate_index_path, class: 'btn btn-primary btn-xs fst_btn', remote: true, params: {cate: t} do%>
+		        <i class="fa fa-star" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i>
+		      <% end %>
+		    <% end %><!-- endof? -->
+		<% else %>
+            <a role="button" class='btn btn-primary btn-xs loginfirst'><i class="fa fa-star" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i></a>
+		<% end %>
+<%= link_to t+"("+i_video_num(t).to_s+")" , category_path(t,cate_send: t), method: :get,id: "md_btn", class: "btn btn-primary btn-xs br_tx md_btn", style: "background: linear-gradient(to bottom, #F7FAFF 0%,#fff 40% , #fff 60% ,#FFFBFF 100%);"%>
+
+		<% if @user != nil%>
+		    <% if user_ban?(t) %><!-- start? -->
+		      <%= button_to ban_path(ban_id(t)), method: :delete, class: 'btn btn-primary btn-xs fst_btn', remote: true, params: {cate: t} do%>
+		        <i class="fa fa-times" aria-hidden="true" style="color:#f33; font-size: 14px;"></i>
+		      <% end %>
+		    <% else %>
+		      <%= button_to ban_index_path, class: 'btn btn-primary btn-xs fst_btn', remote: true, params: {cate: t} do%>
+		        <i class="fa fa-times" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i>
+		      <% end %>
+		    <% end %><!-- endof? -->
+		<% else %>
+            <a role="button" class='btn btn-primary btn-xs loginfirst'><i class="fa fa-times" aria-hidden="true" style="color:#FFFFFF; font-size: 14px;"></i></a>
+		<% end %>
+	</div><!-- end button for trend -->
+</li><!-- end tag -->
+
+	<div >
+	<% evas_of(t).take(4).each do |evangelist| %>
+	<div class="col-md-2_2">
+		    <div class="image_i_div_2">
+             <% if evangelist.r18 == 1 || evangelist.r18 == 2 %>
+            	<%= link_to evangelist do %>
+            	<%= image_tag 'r18.gif', class: "article-index_2", autoplay: true%>
+            	<% end %>
+        	<%else%>
+            	<%= link_to evangelist do %>
+            	<%= image_tag evangelist.yt_img0, class: "article-index_2" %>
+                <%if evangelist.yt_duration != "05:25"%><span class="_dwc"><i class="fa fa-play" aria-hidden="true"></i>&nbsp;<%= evangelist.yt_duration %></span><%end%>
+            	<% end %>
+        	<% end %>
+            </div>
+
+	   <div class ="title_i w_180"><%= link_to evangelist, class: "link" do%><span itemprop="name"> <%= evangelist.title %> </span><%end%></div>
+	   <div class="name_i cl_gray w_180">
+        <% if evangelist.r18 == 1 %><span class="cl_r">R-18</span><% elsif evangelist.r18 == 2 %><span class="cl_r">ネタバレ</span><% end %>
+        <i class="fa fa-play" aria-hidden="true"></i>:<span class="cl_b"><%= evangelist.views_e %></span> <i class="fa fa-star" aria-hidden="true"></i>:<span class="cl_b"><%= evangelist.likes_e%></span> <i class="fa fa-pencil" aria-hidden="true"></i>:<span class="cl_b"><%= evangelist.come_e%></span> - <time itemprop="uploadDate" content="<%= raw evangelist.created_at.to_s.slice(0, 10) %>T<%=raw evangelist.created_at.to_s.slice(11, 5)%>"/><%= time_ago_in_words(evangelist.created_at).gsub(/about/,"").gsub(/less than a/,"") %> ago</time></div>
+        <div class="name_i cl_gray w_180" itemprop="description">
+        <%if evangelist.cate == 1%>
+        <span class="cl_b">科学技術</span>
+        <% end %>
+          by <span class="cl_b" itemprop="director"><%if evangelist.user_id != 4 && evangelist.user_id != 1 %> <% if evangelist.user_name.to_s.include?("@gmail") || evangelist.user_name.to_s.include?("@doc")|| evangelist.user_name.to_s.include?("@ez")%> メールっぽい！ <%else%>
+          <%= link_to evangelist.user_name, user_path(evangelist.user_id) %>
+          <%end%><% else %> 名無しさん <% end %></span></div>
+	   <div class="name_i w_180"></div>
+	</div>
+    <% @elimi_prev << evangelist.id %>
+	<% end %>
+	</div>
+</div>
+<% end %>  <!-- end_od_do -->
+
+<div class="row_2"></div>
+<%end%><!-- end of !=nil -->

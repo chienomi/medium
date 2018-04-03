@@ -1,0 +1,6 @@
+var h_side = $('#para1').offset().top;
+$('#comment_side').offset({top:h_side});
+$('#comment_side').empty();
+$('#comment_side').append("<%= j render 'show_comment_side' %>");
+$('#comment_side').append("<%= j render 'input_comment_side' %>");
+// 190

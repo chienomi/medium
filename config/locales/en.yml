@@ -1,0 +1,69 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  app:
+    register: "JOIN"
+    pl_log: "Please Log In"
+    how_to: "How To Use"
+  index:
+    anisong: "Anisong"
+    music: "Music"
+    touhou: "Touhou"
+    game_music: "Game Music"
+    gaming: "Gaming"
+    hentai: "Hentai"
+    outlaw: "Crazy"
+    playedit: "Played it"
+    recent_hot: "What's Hot Right Now"
+    dev: "Dev Blog"
+    related: "Related Tags and Videos (by hotness)"
+    recommended: "Recommended"
+    search: "Search Tags & Videos"
+    tellme: "Tell me the YouTube URL you recommend!"
+    submit: "Submit"
+    hot: "Ranked by Hotness"
+    searched: "from search results of tags"
+    searchedv: " from search results of videos"
+    searchedt: " from search results of tags"
+    currently: "You can change the top page from the user page！"
+    newest: "Newest"
+    most_viewed: "Most viewed"
+    hottest: "Hottest"
+  how:
+    whatis: "What is jukubox?"
+    l1: "Make YouTube more engaging!"
+    l2: "It's like reddit for YouTube. You can loop videos as you like!"
+    l3: "Without joining, you can use..."
+    l4: "Copy & Paste YouTube URL to post it!"
+    l5: "Comment on the video will flowing over it!"
+    l6: "Use this like TV!（We will make it more custimizable）"
+    l7: "With joining, you can use..."
+    l8: "Edit tags by clicking 'Edit Tags'! Each tags can be separated by space. Enter to submit!"
+    l9: "Tags you tagged for first time will be locked after a few hours since submited"
+    l10: "You can use this as a spam filter for videos! Click "
+    l11: "at the right of each tag!"
+    l12: "Recommendations will be wiser as you use. Click"
+    l13: "at the left of each tag! (We are improving this!）"
+  show:
+    change: "Change browser size and video size will follow!"
+    keepblank: "Keep this blank when you won't change the URL!"
+    s_url: "Shortened URL"

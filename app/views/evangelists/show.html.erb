@@ -1,0 +1,170 @@
+
+</div>
+<div class="ue_42">
+  <% flash.each do |name, value| %>
+      <div class="alert alert-<%= name %> custom-alert" >
+          <div align="center"><%= value %></div>
+      </div>
+  <%end%>
+</div>
+
+<!-- end of container -->
+<article>
+<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+
+<div class="container-fluid">
+    <div class = "col-md-12 title_s" style="width:100%;margin-top: 42px;margin-bottom: 21px;" align="center">
+        <span itemprop="name"><%= @evangelist.title.html_safe %></span>
+    </div>
+  <div class="col-md-12"> <!-- user start -->
+      <div align="center">
+        <%= link_to @user_p, class: "link" do%><%= image_tag @user_p.image_user.url(:medium), class: "profile_image_s_e" %><%end%>
+      </div>
+      <div align="center" style="font-weight: 900; font-size: 11px; margin-top: 2px;">
+        <%= link_to @user_p.user_name, @user_p, class: "link" %>
+      </div>
+      <div class="bio_e">
+      <!-- <span style="float:right;margin:auto 0;font-size:14px; color: #9e9ca2;"> Member since <%= @user_p.created_at.to_s.slice(0, 7).gsub(/-/,"/")%></span> -->
+      </div>
+      <div class="bio_e_r" align="center">
+        <% if user_signed_in? %>
+            <% if (@evangelist.user_id == current_user.id && @evangelist.taglock == 0) || @user.id.in?([1]) %>
+              <%= button_to "Edit this note", edit_evangelist_path(@evangelist),method: :get, class: "btn btn-default btn-sm", style: "display: inline-block;"%>
+            <%else%>
+            <%end%>
+        <% end %>
+        <%= time_ago_in_words(@evangelist.created_at).gsub(/about/,"").gsub(/less than/,"") %> ago
+      </div>
+  </div> <!-- user end -->
+
+    <div class = "col-md-12 paragraph" id="pgraham" style="inline-block">
+<%= render 'pgraham' %>
+    </div>
+  <div class="row">
+    <div style="height:1.2em;"></div>
+      <div class="col-md-12" style="margin: 11px auto;" align="center">
+        <span id="tag_e">
+            <%= render "tag" %>
+        </span>
+      </div>
+    </div>
+   <div class = "row" style = "padding-top:1em;">
+    <div id="likes_e">
+      <%= render "likes" %>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+<div class="row">
+  <div class="col-md-12" style="padding-top: 48px;" align="center">
+    <h2>Comments</h2>
+    <h4>You can also comment by dragging the text</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="c_box col-md-12"> <!-- user start -->
+    <% if @user != nil %>
+      <div class="user_name" style="line-height: 24px;">
+        <div><%= link_to @user.user_name, @user, class: "link user_name_under" %></div>
+        <%= image_tag @user.image_user.url(:medium), class: "profile_image" %>
+      </div>
+      <div class="bio">
+      now
+      </div>
+    <% end %>
+      <div class="bio_c" style="margin-left:-6px;">
+        <%= form_for [@evangelist, @evangelist.conversations.build], remote: true do |f| %>
+              <div id="send_left" align="center">
+                <%= f.text_field :body,  class: "text_i", id: "c_i", autocomplete: "off", placeholder: "What's up?"%>
+              </div>
+              <div id="send_right">
+                <% if user_signed_in? %>
+                  <button type="submit" id="send_c" style="display:none"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>
+                <% else %>
+                  <button type="none" class="loginfirst btn btn-default" style="display:none;"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>
+                <% end %>
+              </div>
+        <%end%><!-- end do -->
+      </div>
+    </div>
+  </div>
+
+
+<div id="pop_loginfirst", class="pop">
+  <h2 align="center" style="margin:15px;"> Sign in via </h2>
+  <h4 align="center" style="margin:5px;" >
+      <%= link_to user_omniauth_authorize_path(:facebook), class: "btn btn-default_w", style: "color: #fff;" do %><i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp; Facebook <% end %>
+      <%= link_to user_omniauth_authorize_path(:google), class: "btn btn-default_w", style: "color: #fff;" do %><i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp; Google+ <% end %>
+  </h4>
+  <br>
+</div>
+
+  <div class="col-md-12">
+    <ul id ="c_o" class="kome_b">
+        <%= render 'evangelists/conversation' %>
+    </ul>
+  </div>
+
+  </div>
+</div>
+<div class="container">
+
+</div>
+  <img itemprop="thumbnailUrl" content="<%=@evangelist.yt_img0%>" />
+  <link itemprop="contentUrl" content="<%=@show_src%>" />
+  <link itemprop="embedUrl" content="<%=@show_src%>" />
+  <meta itemprop="uploadDate" content="<%= raw @evangelist.created_at.to_s.slice(0, 10) %>T<%=raw @evangelist.created_at.to_s.slice(11, 5)%>" />
+  <meta itemprop="duration" content="<%=@evangelist.yt_duration%>">
+
+  <meta name="medium" content="video" />
+  <meta property="og:title" content="<%= @evangelist.title %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://....com/m/<%=@evangelist.id%>" />
+  <meta property="og:image" content="<%=@evangelist.yt_img0%>" />
+  <meta property="og:description" content="<%=@evangelist.categories.pluck(:name).join(" ")%> - <%= @evangelist.title %> - ....com" />
+  <meta property="og:site_name" content="....com" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="<%=@evangelist.title%>" />
+  <meta name="twitter:description" content="<%=@evangelist.paragraph1%>" />
+  <meta name="twitter:url" content="https://....com/m/<%=@evangelist.id%>" />
+  <meta name="twitter:image" content="<%=@evangelist.yt_img0%>" />
+  <meta name="twitter:site" content="@..." />
+  <meta name="twitter:domain" content="....com" />
+</span>
+<div id="popup_m">
+    <div class="col-md-12 c_pop c_box"> <!-- user start -->
+      <% if @user != nil%>
+      <div class="user_name" style="line-height: 24px;">
+        <div><%= link_to @user.user_name, @user, class: "link user_name_under" %></div>
+        <%= image_tag @user.image_user.url(:medium), class: "profile_image" %>
+      </div>
+      <div class="bio" >
+      now
+      </div>
+      <% end %>
+      <div class="bio_c" style="margin-left: -4px; height:78px;">
+        <%= form_for [@evangelist, @evangelist.conversations.build], remote: true do |f| %>
+              <div id="send_left" align="center">
+                <%= f.text_area :body,  class: "text_i", id: "c_i_2", autocomplete: "off", placeholder: "What's up?", rows: 3%>
+                <%= f.text_field :a_str, id: "c_x_1_x_2", type: "hidden" %>
+              </div>
+              <span style="float:left; font-size:12px; position:absolute; padding-left: 14px; color: #AAA;"><b id="display_count">0</b><b>/20 words</b></span>
+              <div id="send_right" align="center">
+                <% if user_signed_in? %>
+                  <button type="submit" id="send_c" class="btn btn-default btn-sm"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>
+                <% else %>
+                  <button type="none" class="loginfirst btn btn-default" ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>
+                <% end %>
+              </div>
+        <%end%><!-- end do -->
+      </div>
+  </div>
+</div>
+
+</article>
+
+<script type="text/javascript">
+
+$(document).ready(function(){$("#c_i_2").on('keyup touchend',function(){var a;a=this.value.match(/\S+/g).length;if(a>20){var b=$(this).val().split(/\s+/,20).join(" ");$(this).val(b+" ");$('#display_count').css({'color':'#ff431e'})}else if(a>15){$('#display_count').css({'color':'rgb(255, 180, 0)'});$('#display_count').text(a)}else{$('#display_count').text(a)}})});$(function(){$('#user_mo').powerTip({mouseOnToPopup:'true',placement:'sw'});$('#user_mo').data('powertip','<p><%= @user_p.user_name %> has opened </p><p><b><%= pluralize(@user_p_mo, "material") %></b> last 30 days.</p>')});getSelectedTextWithin(document);$(document).ready(function(){var b;b=0;var c;c="";var d;var f;var g;var h;d=/c_str_[0-9]*/;f=/c_str_[0-9]*(?![\s\S]*c_str_)/;$('#story').on("mouseup touchend",(function(e){var a;a=getSelectedTextWithin(document);if(a!=""&&b==0){if(window.innerWidth-e.pageX<176){$('#popup_m').css({top:e.pageY-178,right:10}).show()}else if(e.pageX<176){$('#popup_m').css({top:e.pageY-178,left:10}).show()}else{$('#popup_m').css({top:e.pageY-178,left:e.pageX-192}).show()};g=rangy.getSelection().toHtml();c=d.exec(g)+",";h=d.exec(g);while(h!=null){c=c+d.exec(g)+",";g=g.replace(d,"");h=d.exec(g)}c=c+"1";$("#c_x_1_x_2").val(c);b=1}else{$('#popup_m').hide();b=0}}));$('#story').on("mousedown touchstart",function(){$('#popup_m').hide();b=0});$('#extra').on("mouseup touchend",(function(e){var a;a=getSelectedTextWithin(document);if(a!=""&&b==0){if(window.innerWidth-e.pageX<176){$('#popup_m').css({top:e.pageY-178,right:10}).show()}else if(e.pageX<176){$('#popup_m').css({top:e.pageY-178,left:10}).show()}else{$('#popup_m').css({top:e.pageY-178,left:e.pageX-192}).show()};g=rangy.getSelection().toHtml();c=d.exec(g)+",";h=d.exec(g);while(h!=null){c=c+d.exec(g)+",";g=g.replace(d,"");h=d.exec(g)}c=c+"2";$("#c_x_1_x_2").val(c);b=1}else{$('#popup_m').hide();b=0}}));$('#extra').on("mousedown touchstart",function(){$('#popup_m').hide();b=0})});function getSelectedTextWithin(a){var b;b="";if(typeof window.getSelection!="undefined"){var c=window.getSelection(),rangeCount;if((rangeCount=c.rangeCount)>0){var d=document.createRange();for(var i=0,selRange;i<rangeCount;++i){d.selectNodeContents(a);selRange=c.getRangeAt(i);if(selRange.compareBoundaryPoints(d.START_TO_END,d)==1&&selRange.compareBoundaryPoints(d.END_TO_START,d)==-1){if(selRange.compareBoundaryPoints(d.START_TO_START,d)==1){d.setStart(selRange.startContainer,selRange.startOffset)}if(selRange.compareBoundaryPoints(d.END_TO_END,d)==-1){d.setEnd(selRange.endContainer,selRange.endOffset)}b+=d.toString()}}}}else if(typeof document.selection!="undefined"&&document.selection.type=="Text"){var e;e=document.selection.createRange();var f;f=e.duplicate();f.moveToElementText(a);if(e.compareEndPoints("EndToStart",f)==1&&e.compareEndPoints("StartToEnd",f)==-1){if(e.compareEndPoints("StartToStart",f)==1){f.setEndPoint("StartToStart",e)}if(e.compareEndPoints("EndToEnd",f)==-1){f.setEndPoint("EndToEnd",e)}b=f.text}}return b}
+</script>
+

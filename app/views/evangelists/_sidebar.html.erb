@@ -1,0 +1,49 @@
+
+       	<ul class="sidebar-nav">
+       		<div class="line_2">
+       		<i class="fa fa-tags" aria-hidden="true"></i> マイタグ <a href="#" title="マイタグとは？" data-toggle="popover" data-placement="bottom" data-content="レコメンデーションの素。お気に入りするとふえるよ!! リンクから一覧にとびます。"><i class="fa fa-question-circle cl_y" aria-hidden="true"></i></a>
+       		</div>
+        <% @hennano = [] %>
+        <% @categories.pluck(:name).each do |t| %>
+
+        	<% if t.in?(@hennano) %>
+        	<% else %>
+
+        	<li style="margin-bottom:0.5em;">
+		    <div class="btn-group" role="group" area-label="Subscribe or Go to Categories">
+
+		<% if @user != nil%>
+		    <% if user_categorize?(t) %><!-- start? -->
+		      <%= button_to cate_path(cate_id(t)), method: :delete, class: 'btn btn-primary btn-xs', remote: true, params: {cate: t} do%>
+		        <i class="fa fa-heart" aria-hidden="true" style="color:#FF006E; font-size:1.0em;"></i>
+		      <% end %>
+		    <% else %>
+		      <%= button_to cate_index_path, class: 'btn btn-primary btn-xs', remote: true, params: {cate: t} do%>
+		        <i class="fa fa-heart" aria-hidden="true" style="color:#FFFFFF; font-size:1.0em;"></i>
+		      <% end %>
+		    <% end %><!-- endof? -->
+		<% else %>
+            <a role="button" class='btn btn-primary btn-xs loginfirst'><i class="fa fa-heart" aria-hidden="true" style="color:#FFFFFF; font-size:1.0em;"></i></a>
+		<% end %>
+
+		      <button type="button" class="btn btn-primary btn-xs" style="background: linear-gradient(to bottom, #F7FAFF 0%,#fff 40% , #fff 60% ,#FFFBFF 100%);"><%= link_to t, category_path(t), params: {cate_send: t} %></button>
+
+		    <!--   <button type="button" class="btn btn-primary btn-xs" style="cursor: default;"><%= i_subscriber(t) %></button> -->
+		    </div>
+
+		    </li>
+
+		    <% @hennano << t %>
+		    <% end %><!-- end_of_ifelse -->
+		<% end %>  <!-- end_od_do -->
+		<br>
+		  <%= link_to evangelist_index_cate_path(:evangelist_title), method: :post, remote: true do%>
+		      <i class="fa fa-ship" aria-hidden="true"></i> Discover More
+		  <% end %>
+		  <div id="discover_more" style="min-height:200px;"></div>
+        </ul>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('[data-toggle="popover"]').popover();
+});
+</script>

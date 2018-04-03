@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: MyText
+  vote: 1
+  listorder: 1
+  user_id: 
+
+two:
+  body: MyText
+  vote: 1
+  listorder: 1
+  user_id: 

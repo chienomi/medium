@@ -1,0 +1,41 @@
+<% if !user_signed_in? %>
+<div class="top_cover_img">
+<%else%>
+<div>
+<%end%>
+<div class="top_cover_inside">
+  <div class="ue_42">
+  <% flash.each do |name, value| %>
+      <div class="alert alert-<%= name %> custom-alert" style="text-shadow: none;">
+          <div align="center"><%= value %></div>
+      </div>
+  <%end%>
+  </div>
+
+  <% if !user_signed_in? %>
+  <div align="center" id="ytform_all">
+    <%= render 'evangelists/ytform' %>
+  </div>
+  <% end %>
+
+</div>
+</div>
+
+<% if !user_signed_in? %>
+<%= render 'surprises' %>
+<% end %>
+
+<div class="container">
+<div class="row">
+  <div class="padding_ue_1 minw2" align="center"><h2> Search Results</h2></div>
+
+    <div id="topic_tag_index" class="mwid2">
+    <%= render 'evangelists/topic_tag' %>
+    </div>
+
+    <div id="topic_video_tag_index" class="mwid2">
+    <%= render 'evangelists/topic_video' %>
+    </div>
+</div>
+
+</div><!-- quit container -->

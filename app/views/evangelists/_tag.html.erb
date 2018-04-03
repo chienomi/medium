@@ -1,0 +1,24 @@
+<% if @evangelist != nil %>
+
+<% @evangelist.categories.pluck(:name).each do |t| %>
+
+<span style="margin:0.5em; list-style: none;">
+<div class="btn-group" role="group" area-label="Subscribe or Go to Categories"><!-- start button for trend -->
+<%= link_to t, category_path(t, cate_send: t), method: :get,:target=>["_blank"], class: "btn btn-default btn-sm br_tx", style: "margin:5px;" %>
+</div><!-- end button for trend -->
+</span><!-- end tag -->
+
+<%end%>
+
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(function(){
+
+      $('#tag-edit-link').click(function() {
+            $('#tag_edit').toggle(425);
+            $('#i_tag_list').focus();
+          });
+});
+</script>

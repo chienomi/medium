@@ -1,0 +1,57 @@
+        <span itemprop="articleBody" id="story">
+          <%= @evangelist.paragraph1.html_safe %>
+        </span>
+<% if user_signed_in? %>
+<% if current_user.id == 1 %>
+
+<% if user_signed_in? %>
+          <% if current_user.following?(@evangelist.user) %>
+              <span itemprop="articleBody" id="extra">
+              <%= @evangelist.extra.html_safe %>
+              </span>
+          <% else %>
+              <% if @user_p.uid != nil %>
+                  <div class="well well-lg" align="center"><p>Get all materials from <%= @user_p.user_name%> by $7/month</p>
+                    <p><%= render 'charges/new'%></p>
+                    <p style="font-size: 16px; line-height: 16px;">Frequency: <%= @user_p.period %></p>
+                    <p style="font-size: 16px; line-height: 16px;">Refundable for 7 days</p>
+                  </div>
+              <% else %>
+                  <div class="well well-lg" align="center"><p><%= @user_p.user_name%> haven't yet started the subscription. </p>
+                  </div>
+              <% end %>
+        <% end %>
+<% else %>
+          <div class="well well-lg" align="center"><p>Sign up now</p>
+              <%= button_to user_omniauth_authorize_path(:facebook), role:"menuitem", class: "btn btn-primary", form: {style: 'display:inline-block;'} do %><i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;&nbsp; Facebook <% end %>
+              <%= button_to user_omniauth_authorize_path(:google), role:"menuitem", class: "btn btn-primary", form: {style: 'display:inline-block;'} do %><i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp; Google+ <% end %>
+            <p>to Get Full notes from <%= @user_p.user_name %> by $7/month</p>
+          </div>
+<% end %>
+
+<% end %>
+<% end %>
+
+        <% @evangelist.conversations.each do |conversation| %>
+          <% if @evangelist.a_str.include?(conversation.id)%>
+            <div id="c_<%= conversation.id %>" class="popup_m">
+              <div class="col-md-12 c_pop"> <!-- user start -->
+                <div class="user_name" style="line-height: 24px;">
+                  <div><%= link_to conversation.user_name, conversation.user, class: "link user_name_under" %></div>
+                  <%= image_tag conversation.user.image_user.url(:medium), class: "profile_image" %>
+                </div>
+                <div class="bio">
+                <%= time_ago_in_words(conversation.created_at).gsub(/about/,"").gsub(/less than/,"") %> ago
+                </div>
+                <div class="bio_c">
+                <%if conversation.body != "" %><%= conversation.body %><% end %>
+              <!--   <span style="float:right;"><button id="<%= conversation.id%>" class="replay btn btn-xs btn-default">replay</button> </span> -->
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+$(function(){$('.c_pop_'+<%=conversation.id.to_s%>).on("mouseover touchend",function(){var a=$('.c_pop_'+<%=conversation.id.to_s%>).position();if(window.innerWidth-a.left<176){$('#c_'+<%=conversation.id.to_s%>).css({top:a.top-126,left:window.innerWidth-309})}else if(a.left<176){$('#c_'+<%=conversation.id.to_s%>).css({top:a.top-126,left:0})}else{$('#c_'+<%=conversation.id.to_s%>).css({top:a.top-126,left:a.left-144})};$('#c_'+<%=conversation.id.to_s%>).css({visibility:"visible"}).animate({opacity:1},{queue:false})}).on("mouseleave",function(){$('#c_'+<%=conversation.id.to_s%>).animate({opacity:0},{queue:false});$('.c_pop_'+<%=conversation.id.to_s%>).css({'text-shadow':'1px 1px 0px rgb(255, 152, 140);'})})});
+            </script>
+
+          <% end %>
+        <% end %>
